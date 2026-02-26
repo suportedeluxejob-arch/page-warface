@@ -24,7 +24,7 @@ const db = getDatabase(app);
 const REDIRECT_URL = 'https://www.facebook.com/profile.php?id=61566938079798';
 
 // URL do seu Checkout do Kirvano
-const PAYMENT_BASE_URL = 'COLE_AQUI_O_LINK_DE_CHECKOUT_DO_KIRVANO';
+const PAYMENT_BASE_URL = 'https://pay.kirvano.com/97376049-05c9-42b6-96f8-9b0fab2ac35c';
 
 // ============================================================
 //  Gera um ID de sessão único para rastrear o pagamento
@@ -64,7 +64,11 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     // 3. Exibe o modal e inicia escuta em tempo real
     exibirModal();
     escutarPagamento();
-  }).catch(err => console.error('Erro ao criar sessão de pagamento:', err));
+  }).catch(err => {
+    console.error('Erro ao criar sessão de pagamento (Regras bloqueadas?):', err);
+    // MESMO COM ERRO (ex: Permission Denied), ABRE A TELA PRA CONTINUAR O FUNIL
+    exibirModal();
+  });
 });
 
 
@@ -79,45 +83,34 @@ function exibirModal() {
 
 
 // ============================================================
-//  Abre o pagamento como POPUP (usuário paga sem sair da página)
+//  Abre o pagamento como POPUP (resolve o bloqueio de iFrame do Kirvano)
 // ============================================================
 document.getElementById('btnPagar').addEventListener('click', function () {
-  // Passa o sessionId como referência (SRC) no link do Kirvano
-  // O Kirvano costuma aceitar o parâmetro src= ou sck=
   const urlPagamento = PAYMENT_BASE_URL.includes('?')
     ? `${PAYMENT_BASE_URL}&src=${sessionId}`
     : `${PAYMENT_BASE_URL}?src=${sessionId}`;
 
+  // Mostra que está aguardando na tela principal
+  document.getElementById('paymentStatus').classList.remove('hidden');
+  document.getElementById('statusWaiting').classList.remove('hidden');
+
   // Dimensões do popup de pagamento
-  const largura = 480;
-  const altura = 700;
+  const largura = 500;
+  const altura = 750;
   const left = Math.round((screen.width - largura) / 2);
   const top = Math.round((screen.height - altura) / 2);
 
+  // Abre a janela de Pop-up limpinha para o Kirvano
   const popup = window.open(
     urlPagamento,
     'kirvano_checkout',
-    `width=${largura},height=${altura},left=${left},top=${top},resizable=yes,scrollbars=yes`
+    `width=${largura},height=${altura},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
   );
 
-  // Atualiza visual do botão para "aguardando"
-  this.innerHTML = `
-    <svg class="spin-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-      <path d="M12 2A10 10 0 0 1 22 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    Aguardando pagamento...
-  `;
-  this.disabled = true;
-
-  // Detecta se o popup foi fechado (usuário fechou antes de pagar)
-  const monitorPopup = setInterval(() => {
-    if (popup && popup.closed) {
-      clearInterval(monitorPopup);
-      // Popup fechado — só habilita o botão se o pagamento foi confirmado
-      // A verificação já está sendo feita via escutarPagamento()
-    }
-  }, 1000);
+  // Se o popup for bloqueado pelo navegador, manda para uma nova aba normal
+  if (!popup || popup.closed || typeof popup.closed == 'undefined') {
+    window.open(urlPagamento, '_blank');
+  }
 });
 
 
