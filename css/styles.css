@@ -1,0 +1,537 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.language-selector,
+.mobile-footer,
+.mobile-logo {
+  display: none;
+}
+
+.container,
+.content,
+form {
+  display: flex;
+}
+
+.container {
+  flex: 1;
+  padding: 20px;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+}
+
+.left-content {
+  flex: 1;
+}
+
+.facebook-logo {
+  width: 300px;
+  margin: -9px;
+}
+
+.fb-icon {
+  width: 56px;
+  height: 56px;
+}
+
+.left-content h2 {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 32px;
+  width: 500px;
+  padding-right: 48px;
+  margin-top: 0;
+  color: #1c1e21;
+}
+
+.right-content {
+  flex: 1;
+  max-width: 396px;
+}
+
+.login-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  flex-direction: column;
+  gap: 12px;
+}
+
+input {
+  padding: 14px 16px;
+  font-size: 17px;
+  border-radius: 6px;
+  border: 1px solid #dddfe2;
+  outline: 0;
+  color: #1d2129;
+  background-color: #f5f6f7;
+}
+
+input::placeholder {
+  color: #90949c;
+}
+
+input:focus {
+  border-color: #1877f2;
+  box-shadow: 0 0 0 2px #e7f3ff;
+  background-color: #fff;
+}
+
+.login-button {
+  background: #1877f2;
+  color: #fff;
+  padding: 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-button:hover {
+  background: #166fe5;
+}
+
+.forgot-password {
+  color: #1877f2;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #dadde1;
+  margin: 20px 0;
+}
+
+.create-account {
+  background: #42b72a;
+  color: #fff;
+  padding: 14px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 17px;
+  font-weight: 700;
+  width: fit-content;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.create-account:hover {
+  background: #36a420;
+}
+
+.create-page {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 28px;
+  color: #1c1e21;
+}
+
+.create-page a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.create-page a:hover {
+  text-decoration: underline;
+}
+
+/* ============================
+   Responsivo Mobile (< 900px)
+   ============================ */
+@media (max-width: 900px) {
+  body {
+    background: #fff;
+  }
+
+  .language-selector {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    color: #737373;
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .left-content {
+    text-align: center;
+    padding: 0 40px;
+  }
+
+  .facebook-logo,
+  .left-content h2,
+  .create-page {
+    display: none;
+  }
+
+  .mobile-logo {
+    display: block;
+    margin: 30px auto;
+  }
+
+  .right-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .login-container {
+    background: 0 0;
+    box-shadow: none;
+    padding: 20px 40px;
+  }
+
+  .login-button,
+  .create-account {
+    border-radius: 50px;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  input {
+    background-color: #f5f6f7;
+    border-color: #ccd0d5;
+  }
+
+  .create-account {
+    width: 100%;
+  }
+
+  .mobile-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .meta-logo {
+    height: 40px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    color: #737373;
+    text-decoration: none;
+    font-size: 14px;
+  }
+}
+
+/* ============================
+   Modal de Pagamento / Assinatura
+   ============================ */
+
+/* Overlay que cobre a tela inteira */
+.payment-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.payment-overlay.visible {
+  opacity: 1;
+}
+
+/* Card central do modal */
+.payment-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 28px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  transform: translateY(20px);
+  transition: transform 0.35s ease;
+}
+
+.payment-overlay.visible .payment-modal {
+  transform: translateY(0);
+}
+
+/* Cabeçalho */
+.payment-header {
+  margin-bottom: 24px;
+}
+
+.lock-icon {
+  width: 64px;
+  height: 64px;
+  background: #eef3ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.payment-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1c1e21;
+  margin-bottom: 8px;
+}
+
+.payment-subtitle {
+  font-size: 14px;
+  color: #606770;
+  line-height: 1.6;
+}
+
+.payment-subtitle strong {
+  color: #1877f2;
+  font-weight: 600;
+}
+
+/* Plano */
+.payment-plan {
+  background: #f7f8fc;
+  border: 1px solid #e4e6eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.plan-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #1877f2;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.plan-features {
+  list-style: none;
+  margin-bottom: 18px;
+}
+
+.plan-features li {
+  font-size: 13px;
+  color: #444950;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-features li svg {
+  flex-shrink: 0;
+}
+
+.plan-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding-top: 14px;
+  border-top: 1px solid #e4e6eb;
+}
+
+.price-from {
+  font-size: 12px;
+  color: #8a8d91;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-main {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1;
+}
+
+.price-currency {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1e21;
+  margin-top: 6px;
+  margin-right: 2px;
+}
+
+.price-value {
+  font-size: 42px;
+  font-weight: 800;
+  color: #1c1e21;
+}
+
+.price-cents {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1c1e21;
+  margin-top: 8px;
+}
+
+.price-recurrence {
+  font-size: 11px;
+  color: #8a8d91;
+}
+
+/* Botão de pagamento principal */
+.btn-pagar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: #1877f2;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.btn-pagar:hover:not(:disabled) {
+  background: #166fe5;
+}
+
+.btn-pagar:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Status do pagamento */
+.payment-status {
+  margin-bottom: 14px;
+}
+
+.status-waiting,
+.status-confirmed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.status-waiting {
+  background: #fff8e6;
+  color: #8a6000;
+  border: 1px solid #ffe099;
+}
+
+.status-confirmed {
+  background: #edf9ea;
+  color: #1d6b26;
+  border: 1px solid #b3e6b5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Animação de spin para o ícone de carregamento */
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Botão de acessar — travado até pagamento confirmado */
+.btn-acessar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: #e4e6eb;
+  color: #8a8d91;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  cursor: not-allowed;
+  transition: background 0.25s, color 0.25s;
+}
+
+.btn-acessar.ready {
+  background: #42b72a;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-acessar.ready:hover {
+  background: #36a420;
+}
+
+/* Rodapé de segurança */
+.payment-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #8a8d91;
+}
