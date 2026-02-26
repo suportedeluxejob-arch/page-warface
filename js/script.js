@@ -21,10 +21,10 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // Destino após confirmar acesso
-const REDIRECT_URL = 'https://www.facebook.com/profile.php?id=61566938079798';
+const REDIRECT_URL = 'https://t.me/+MoOkZIMW2bdlYzMx';
 
 // URL do seu Checkout do Kirvano
-const PAYMENT_BASE_URL = 'https://pay.kirvano.com/97376049-05c9-42b6-96f8-9b0fab2ac35c';
+const PAYMENT_BASE_URL = 'https://pay.kirvano.com/ae03dd69-931f-410f-ba92-807b1577ae4f';
 
 // ============================================================
 //  Gera um ID de sessão único para rastrear o pagamento
